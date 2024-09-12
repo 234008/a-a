@@ -3,15 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ダイアログボタンの例</title>
+    <title>オプションボタンとダイアログの例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        dialog {
+            border: none;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
+    <h2>好きな色を選んでください:</h2>
+
+    <!-- オプションボタン -->
+    <input type="radio" id="red" name="color" value="赤">
+    <label for="red">赤</label><br>
+
+    <input type="radio" id="blue" name="color" value="青">
+    <label for="blue">青</label><br>
+
+    <input type="radio" id="green" name="color" value="緑">
+    <label for="green">緑</label><br>
+
     <!-- ダイアログを表示するボタン -->
-    <button id="openDialog">ダイアログを開く</button>
+    <button id="openDialog">選択を表示</button>
 
     <!-- ダイアログ -->
     <dialog id="myDialog">
-        <p>これはダイアログの内容です</p>
+        <p id="dialogContent">選択が表示されます</p>
         <button id="closeDialog">閉じる</button>
     </dialog>
 
@@ -20,9 +47,16 @@
         const openDialogButton = document.getElementById('openDialog');
         const closeDialogButton = document.getElementById('closeDialog');
         const dialog = document.getElementById('myDialog');
+        const dialogContent = document.getElementById('dialogContent');
 
-        // ダイアログを開く
+        // ダイアログを開くときに選択されたオプションを表示
         openDialogButton.addEventListener('click', () => {
+            const selectedOption = document.querySelector('input[name="color"]:checked');
+            if (selectedOption) {
+                dialogContent.textContent = `選択された色: ${selectedOption.value}`;
+            } else {
+                dialogContent.textContent = "何も選択されていません";
+            }
             dialog.showModal();
         });
 
